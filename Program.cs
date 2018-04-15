@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -19,7 +20,13 @@ namespace SerializationDeserializationSimpl
             var serializer = new XmlSerializer(album.GetType());
             using (var writer = XmlWriter.Create("album.xml"))
             {
-                serializer.Serialize(writer, album);
+                serializer.Serialize(writer, album); //serializes to XmlWriter for later deserialization back into Album obj
+                var sWriter = new StringWriter();
+                serializer.Serialize(sWriter, album); //serializes to StringWriter for display in the Console via WriteLine
+                Console.WriteLine(sWriter.ToString());
+                Console.WriteLine("------------------------------------");
+                Console.WriteLine("------------------------------------");
+                Console.WriteLine("------------------------------------");
             }
 
             Console.WriteLine("Serialization to XML sucessfull!");
